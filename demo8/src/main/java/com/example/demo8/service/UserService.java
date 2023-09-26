@@ -17,16 +17,15 @@ public class UserService {
 		this.userRepository=userRepository;
 	}
 	public List<User> findAll() {
-		userRepository.findAll();
-		return null;
+		return userRepository.findAll();
 	}
 	public User save(User newUser) {
-		userRepository.save(newUser);
-		return null;
+		return userRepository.save(newUser);
+	
 	}
-	public Optional<User> findById(Long userId) {
-		userRepository.findById(userId);
-		return null;
+	public User findById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+		
 	}
 	public User updateOneUser(@PathVariable Long userId,@RequestBody User newUser) {
 		Optional<User> user=userRepository.findById(userId);
@@ -34,8 +33,8 @@ public class UserService {
 			User foundUser=user.get();
 			foundUser.setUsername(newUser.getUsername());
 			foundUser.setPassword(newUser.getPassword());
-			userRepository.save(foundUser);
-			return foundUser;
+			
+			return userRepository.save(foundUser);
 		}else
 			return null;
 	}
